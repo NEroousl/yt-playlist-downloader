@@ -1,4 +1,5 @@
 # YouTube Playlist Downloader
+by [NEroousl](https://github.com/NEroousl)
 
 A Python-based tool to download YouTube playlists in various video quality options. The program handles connection interruptions and will pause/resume the download when the internet connection is restored.
 
