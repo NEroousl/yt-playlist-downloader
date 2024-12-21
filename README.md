@@ -11,7 +11,7 @@ A Python-based tool to download YouTube playlists in various video quality optio
 ## Requirements
 - Python 3.x
 - `yt-dlp` library (a powerful YouTube downloader)
-- `tqdm` library (for progress bars)
+- `tqdm` library (for progress bars)  
 
 ### To install the required libraries, run:
 
@@ -46,3 +46,40 @@ pip install yt-dlp tqdm
 
 6. **Download:**
     The program will download the playlist and display the download progress. If the internet connection is lost, the program will pause and resume once the connection is restored.
+
+## Steps to Resolve the Issues:
+
+1. **Install `ffmpeg`:**
+   You need to install `ffmpeg` on your system. Here’s how to do it:
+
+   - **Windows**:
+     - Go to the [FFmpeg download page](https://ffmpeg.org/download.html#build-windows) and download the build for Windows.
+     - Extract the contents to a folder (e.g., `C:\ffmpeg`).
+     - Add `C:\ffmpeg\bin` to your system’s `PATH` environment variable:
+       1. Right-click on "This PC" or "My Computer" and select "Properties."
+       2. Click "Advanced system settings."
+       3. Under the "System Properties" window, click "Environment Variables."
+       4. Under "System Variables," find and select the `Path` variable, then click "Edit."
+       5. Add `C:\ffmpeg\bin` to the list and click "OK."
+   
+   - **Mac**:
+     ```bash
+     brew install ffmpeg
+     ```
+   - **Linux**:
+     On Ubuntu or Debian:
+     ```bash
+     sudo apt update
+     sudo apt install ffmpeg
+     ```
+
+2. **Verify the Installation:**
+   After installing `ffmpeg`, open a new command prompt (or terminal) and type:
+   ```bash
+   ffmpeg -version
+   ```
+   This should show the version of `ffmpeg` installed, confirming that it’s correctly installed.
+
+3. **Re-run the Script:**
+   Once `ffmpeg` is installed, you should be able to run the script again without encountering the "merging of multiple formats" error.
+
