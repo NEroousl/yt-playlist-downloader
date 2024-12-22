@@ -40,9 +40,9 @@ def get_output_folder():
     return output_folder
 
 # Function to ask if user wants .mp4 format
-def ask_for_mp4():
-    choice = input("Do you want to download the video in .mp4 format? (y/n): ").strip().lower()
-    return choice == 'y'
+# def ask_for_mp4():
+#     choice = input("Do you want to download the video in .mp4 format? (y/n): ").strip().lower()
+#     return choice == 'y'
 
 # Progress hook to show download status
 def print_download_status(d):
@@ -64,18 +64,24 @@ def print_download_status(d):
 
 # Function to download the playlist
 def download_playlist(url, quality, output_folder, force_mp4):
-    if force_mp4:
-        ydl_opts = {
-            'format': 'bestvideo+bestaudio/best',  # Best video and audio
-            'outtmpl': os.path.join(output_folder, '%(title)s.mp4'),  # Force MP4 extension
-            'progress_hooks': [print_download_status],
-        }
-    else:
-        ydl_opts = {
+    ydl_opts = {
             'format': f'bestvideo[height<={quality}]+bestaudio/best[height<={quality}]',
             'outtmpl': os.path.join(output_folder, '%(title)s.%(ext)s'),
             'progress_hooks': [print_download_status],
         }
+        
+    # if force_mp4:
+    #     ydl_opts = {
+    #         'format': 'bestvideo+bestaudio/best',  # Best video and audio
+    #         'outtmpl': os.path.join(output_folder, '%(title)s.mp4'),  # Force MP4 extension
+    #         'progress_hooks': [print_download_status],
+    #     }
+    # else:
+    #     ydl_opts = {
+    #         'format': f'bestvideo[height<={quality}]+bestaudio/best[height<={quality}]',
+    #         'outtmpl': os.path.join(output_folder, '%(title)s.%(ext)s'),
+    #         'progress_hooks': [print_download_status],
+    #     }
 
     # Start the download
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
