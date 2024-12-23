@@ -54,10 +54,28 @@ def print_download_status(d):
     elif d['status'] == 'finished':
         print(f"\nFinished downloading: {d['filename']}\n")
 
+# Function to get the best format according to user choice
+def get_format_for_quality(quality):
+    quality_map = {
+        '144p': 144,
+        '240p': 240,
+        '360p': 360,
+        '480p': 480,
+        '720p': 720,
+        '1080p': 1080
+    }
+
+    target_height = quality_map.get(quality, 1080)
+    
+    return f'bestvideo[height<={target_height}]+bestaudio/best[height<={target_height}]'
+
 # Function to download the playlist
 def download_playlist(url, quality, output_folder):
+    # Get the best format for the chosen quality
+    format_selection = get_format_for_quality(quality)
+
     ydl_opts = {
-        'format': f'bestvideo[height<={quality}]+bestaudio/best[height<={quality}]',
+        'format': format_selection,
         'outtmpl': os.path.join(output_folder, '%(title)s.%(ext)s'),
         'progress_hooks': [print_download_status],
         'noplaylist': False,  # Ensure playlists are processed
@@ -74,7 +92,7 @@ def download_playlist(url, quality, output_folder):
 
 # Header banner
 def header():
-    print("""
+    print(""" 
          __   __         _____      _                             
          ` ` / /__  _   |_   _|   _| |__   ___                    
           ` V / _ `| | | || || | | | '_ ` / _ `                   
@@ -85,7 +103,7 @@ def header():
          |  __/| | (_| | |_| | | `__ ` |_                         
          |_|__ |_|`__,_|`__, |_|_|___/`__|            _           
          |  _ `  _____  |___/__ __ | | ___   __ _  __| | ___ _ __ 
-         | | | |/ _ ` ` /` / / '_ `| |/ _ ` / _` |/ _` |/ _ ` '__|
+         | | | |/ _ ` ` /` / / '_ `| |/ _ ` / _` |/ _` |/ _ ` '__| 
          | |_| | (_) ` V  V /| | | | | (_) | (_| | (_| |  __/ |   
          |____/ `___/ `_/`_/ |_| |_|_|`___/ `__,_|`__,_|`___|_|   
                                                                   
